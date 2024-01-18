@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 func main() {
 
 	//continue案例

@@ -2,8 +2,7 @@ package main
 
 import (
 	"fmt"
-	//为了使用utils.go文件的变量或者函数，我们需要先引入该model包
-	"go_code/chapter03/demo04/model"
+	"model/chapter/chapter03/demo04/model"
 )
 
 // 变量使用的注意事项
