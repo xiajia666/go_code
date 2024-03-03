@@ -3,16 +3,16 @@ package process
 import (
 	"encoding/json"
 	"fmt"
-	"net"
-	"os"
 	"go_code/chatsys/client/utils"
 	"go_code/chatsys/common"
+	"net"
+	"os"
 )
 
 func ProcessServerMessage(conn net.Conn) {
 	//创建一个tf 来不停的读取信息...
 	tf := &utils.Transfer{
-		Conn : conn,
+		Conn: conn,
 	}
 	// for {
 	// 	fmt.Println("不停的读取从服务器来的信息，并准备处理...")
@@ -38,15 +38,14 @@ func ProcessServerMessage(conn net.Conn) {
 		}
 
 		switch msg.Type {
-			case common.UserStatusNotifyMesType:
-				updateUserStatus(userStatus)
+		case common.UserStatusNotifyMesType:
+			updateUserStatus(userStatus)
 		}
 	}
 
-
 }
 
-//显示用户登录成功的可以使用的菜单
+// 显示用户登录成功的可以使用的菜单
 func ShowMenu(conn net.Conn) {
 	fmt.Println("1. 显示在线用户列表")
 	fmt.Println("2. 发送信息")
@@ -67,4 +66,3 @@ func ShowMenu(conn net.Conn) {
 		os.Exit(0)
 	}
 }
-

@@ -1,22 +1,23 @@
 package process
+
 import (
-	"net"
-	"go_code/chatsys/common"
-	"go_code/chatsys/client/utils"
-	"fmt"
-	"os"
-	"encoding/json"
 	"encoding/binary"
+	"encoding/json"
+	"fmt"
+	"go_code/chatsys/client/utils"
+	"go_code/chatsys/common"
+	"net"
+	"os"
 )
 
-//UserProcessor.go 相当于一个控制器,装用于处理与用户相关的
+// UserProcessor.go 相当于一个控制器,装用于处理与用户相关的
 type UserProcessor struct {
 	//Conn   net.Conn
 	//Buf    [8192]byte
 }
 
 func (up *UserProcessor) Register(userId int, passwd string, userName string) (err error) {
-	
+
 	//链接到Redis
 	conn, err := net.Dial("tcp", "localhost:8889")
 	if err != nil {
@@ -25,7 +26,7 @@ func (up *UserProcessor) Register(userId int, passwd string, userName string) (e
 	}
 	//关闭链接
 	//defer conn.Close()
-	
+
 	var msg common.Message
 	//这个指定消息的种类...
 	msg.Type = common.RegisterMesType
@@ -69,7 +70,7 @@ func (up *UserProcessor) Register(userId int, passwd string, userName string) (e
 	//读服务器返回的消息包
 	//因为要读取服务器返回的消息包，因此创建一个Transfer实例
 	tf := &utils.Transfer{
-		Conn : conn,
+		Conn: conn,
 	}
 	msg, err = tf.ClientReadPackage()
 	if err != nil {
@@ -91,9 +92,8 @@ func (up *UserProcessor) Register(userId int, passwd string, userName string) (e
 
 }
 
-
 func (up *UserProcessor) Login(userId int, passwd string) (err error) {
-	
+
 	//链接到Redis
 	conn, err := net.Dial("tcp", "localhost:8889")
 	if err != nil {
@@ -142,7 +142,7 @@ func (up *UserProcessor) Login(userId int, passwd string) (err error) {
 	//读服务器返回的消息包
 	//因为要读取服务器返回的消息包，因此创建一个Transfer实例
 	tf := &utils.Transfer{
-		Conn : conn,
+		Conn: conn,
 	}
 	msg, err = tf.ClientReadPackage()
 	if err != nil {
@@ -183,6 +183,5 @@ func (up *UserProcessor) Login(userId int, passwd string) (err error) {
 			ShowMenu(conn)
 		}
 	}
-	return 
+	return
 }
-
