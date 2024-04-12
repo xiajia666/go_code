@@ -6,6 +6,7 @@ func main() {
 
 	var a [5]int
 	a[4] = 100
+
 	fmt.Println("get:", a[2])
 	fmt.Println("len:", len(a))
 
