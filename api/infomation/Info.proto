@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package api.infomation;
+
+option go_package = "model/api/infomation;infomation";
+option java_multiple_files = true;
+option java_package = "api.infomation";
+
+service Info {
+	rpc CreateInfo (CreateInfoRequest) returns (CreateInfoReply);
+	rpc UpdateInfo (UpdateInfoRequest) returns (UpdateInfoReply);
+	rpc DeleteInfo (DeleteInfoRequest) returns (DeleteInfoReply);
+	rpc GetInfo (GetInfoRequest) returns (GetInfoReply);
+	rpc ListInfo (ListInfoRequest) returns (ListInfoReply);
+}
+
+message CreateInfoRequest {}
+message CreateInfoReply {}
+
+message UpdateInfoRequest {}
+message UpdateInfoReply {}
+
+message DeleteInfoRequest {}
+message DeleteInfoReply {}
+
+message GetInfoRequest {}
+message GetInfoReply {}
+
+message ListInfoRequest {}
+message ListInfoReply {}
