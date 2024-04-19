@@ -5,7 +5,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/go-kratos/kratos/cmd/kratos/v2/internal/base"
+	"model/kratos/cmd/kratos/internal/base"
 )
 
 // CmdUpgrade represents the upgrade command.
