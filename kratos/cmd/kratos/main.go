@@ -82,21 +82,27 @@ func main() {
 	db.Create(&allInfo)
 
 	r := gin.Default()
-	r.LoadHTMLFiles("../../html/upload.html")
+	r.LoadHTMLGlob("../../html/*")
 	r.GET("/upload", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "upload.html", gin.H{})
+		c.HTML(http.StatusOK, "upload.html", gin.H{"title": "我是测试",
+			"address": "www.5lmh.com"})
 	})
-	//r.GET("/show", func(c *gin.Context) {
-	//	c.HTML(http.StatusOK, "show.html", gin.H{})
-	//})
+	r.GET("/show", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "show.html", gin.H{"title": "我是测试",
+			"address": "www.5lmh.com"})
+	})
 
-	// 添加路由处理程序
-	//r.GET("/users", func(c *gin.Context) {
-	//	//var users []User
-	//	//// 查询所有用户
-	//	//db.Find(&users)
-	//	c.JSON(200, "ososo")
-	//})
+	r.GET("/show", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "show.html", gin.H{})
+	})
+
+	//添加路由处理程序
+	r.GET("/users", func(c *gin.Context) {
+		//var users []User
+		//// 查询所有用户
+		//db.Find(&users)
+		c.JSON(200, "ososo")
+	})
 	r.POST("/upload", func(context *gin.Context) {
 		file, err := context.FormFile("file")
 		if err != nil {

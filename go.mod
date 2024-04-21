@@ -20,7 +20,7 @@ require (
 require (
 	github.com/fsnotify/fsnotify v1.6.0
 	github.com/gin-contrib/sse v0.1.0 // indirect
-	github.com/gin-gonic/gin v1.3.0 // indirect
+	github.com/gin-gonic/gin v1.3.0
 	github.com/go-kratos/aegis v0.2.0
 	github.com/go-logr/logr v1.4.1 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
