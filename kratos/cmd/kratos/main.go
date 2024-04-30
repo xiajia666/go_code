@@ -71,8 +71,8 @@ func main() {
 	}
 
 	var allInfo = information.PersonInfo{
-		User_id:  1,
-		Username: "John",
+		User_id:  4,
+		Username: "JohnMike",
 		Age:      30,
 		Address:  "123 Street",
 		Sex:      "Male",
@@ -84,25 +84,49 @@ func main() {
 	r := gin.Default()
 	r.LoadHTMLGlob("../../html/*")
 	r.GET("/upload", func(c *gin.Context) {
+		//c.String(200, "ok", "is")
 		c.HTML(http.StatusOK, "upload.html", gin.H{"title": "我是测试",
 			"address": "www.5lmh.com"})
 	})
 	r.GET("/show", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "show.html", gin.H{"title": "我是测试",
+		c.HTML(http.StatusOK, "show.html", gin.H{"title": "我是测试", //gin.H就是map[string]interface{}，interface{}表示任意类型
 			"address": "www.5lmh.com"})
 	})
 
-	r.GET("/show", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "show.html", gin.H{})
+	// 回调函数 // http://localhost:8080/jsonp?cal1back=xxxx 执行前端的函数xxx
+	// xxxx("User_id":  4,"Username": "JohnMike", "Age":30, "Address": "123 Street", "Sex":"Male", "Work":"Engineer", "Email":"john@example.com")})；
+	r.GET("jsonp", func(context *gin.Context) {
+		a := &information.PersonInfo{
+			User_id:  4,
+			Username: "JohnMike",
+			Age:      30,
+			Address:  "123 Street",
+			Sex:      "Male",
+			Work:     "Engineer",
+			Email:    "john@example.com",
+		}
+		context.JSONP(http.StatusOK, a)
 	})
 
-	//添加路由处理程序
-	r.GET("/users", func(c *gin.Context) {
-		//var users []User
-		//// 查询所有用户
-		//db.Find(&users)
-		c.JSON(200, "ososo")
-	})
+	r.GET("xml", func(context *gin.Context) {
+		context.XML(http.StatusOK, map[string]interface{}{
+			"status":  true,
+			"message": "返回的数据",
+		})
+	},
+	)
+
+	//r.GET("/show", func(c *gin.Context) {
+	//	c.HTML(http.StatusOK, "show.html", gin.H{})
+	//})
+	//
+	////添加路由处理程序
+	//r.GET("/users", func(c *gin.Context) {
+	//	//var users []User
+	//	//// 查询所有用户
+	//	//db.Find(&users)
+	//	c.JSON(200, "ososo")
+	//})
 	r.POST("/upload", func(context *gin.Context) {
 		file, err := context.FormFile("file")
 		if err != nil {
@@ -130,6 +154,27 @@ func main() {
 		if err != nil {
 			return
 		}
+	})
+
+	//获取get传值---username、sex
+	r.GET("/getVaule", func(context *gin.Context) {
+		username := context.Query("username")
+		sex := context.DefaultQuery("sex", "男")
+		context.JSONP(http.StatusOK, gin.H{
+			"username": username,
+			"sex":      sex,
+		})
+
+	})
+
+	//获取post传值---
+	r.POST("/postVaule", func(context *gin.Context) {
+		username := context.PostForm("username")
+		sex := context.DefaultPostForm("sex", "女")
+		context.JSONP(http.StatusOK, gin.H{
+			"username": username,
+			"sex":      sex,
+		})
 	})
 
 	// 运行 HTTP 服务器
