@@ -17,3 +17,13 @@ type PersonInfo struct {
 	Work     string
 	Email    string
 }
+
+type GetBindStruct struct {
+	Username string `json:"username" form:"username"`
+	Password string `json:"password" form:"password"`
+}
+
+type GetXml struct {
+	Title   string `json:"title" xml:"title"`
+	Content string `json:"content" xml:"content"`
+}
