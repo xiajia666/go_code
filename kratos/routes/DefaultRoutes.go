@@ -1,8 +1,11 @@
 package routes
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"model/kratos/controllers/admin"
+	"model/kratos/middleware/customize"
+	information "model/kratos/struct/Information"
 	"net/http"
 )
 
@@ -19,11 +22,15 @@ func DefaultRoutes(r *gin.Engine) {
 		r.GET("/jsonp", admin.Jsonp)
 
 		// 返回xml
-		r.GET("xml", func(context *gin.Context) {
-			context.XML(http.StatusOK, map[string]interface{}{
-				"status":  true,
-				"message": "返回的数据",
+		r.GET("xml", customize.InitMiddleWareOne, customize.InitMiddleWareTwo, func(context *gin.Context) { //中间件执行顺序   1-我是中间件---->3-我是中间件---->我要返回xml数据---->4-我是中间件---->   2-我是中间件
+			context.XML(http.StatusOK, information.GetXml{
+				Title:   "返回的数据",
+				Content: "true",
 			})
+			fmt.Println("我要返回xml数据")
+			username, _ := context.Get("username") //来自全局中间件的值
+			v, _ := username.(string)              // 类型断言，将username由interdace{}转化为string
+			fmt.Println(v)
 		},
 		)
 

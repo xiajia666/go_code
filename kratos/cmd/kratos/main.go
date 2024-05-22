@@ -11,6 +11,7 @@ import (
 	"model/kratos/cmd/kratos/internal/proto"
 	"model/kratos/cmd/kratos/internal/run"
 	"model/kratos/cmd/kratos/internal/upgrade"
+	"model/kratos/middleware/customize"
 	"model/kratos/routes"
 	"model/kratos/struct/Information"
 )
@@ -80,8 +81,10 @@ func main() {
 	}
 	db.Create(&allInfo)
 
-	r := gin.Default()
+	r := gin.Default()                //默认引擎自带两个中间件
+	r.Use(customize.GolbalMiddleWare) //全局中间件，可配置多个
 	routes.DefaultRoutes(r)
+	routes.ApiRoutes(r)
 
 	// 运行 HTTP 服务器
 	r.Run(":8080")
