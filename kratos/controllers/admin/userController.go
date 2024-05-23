@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	information "model/kratos/struct/Information"
 	"net/http"
+	"path"
 	"strconv"
 )
 
@@ -25,6 +26,12 @@ func Upload(content *gin.Context) {
 		"address": "www.5lmh.com"})
 }
 
+func UploadSameName(content *gin.Context) {
+	//c.String(200, "ok", "is")
+	content.HTML(http.StatusOK, "uploadSameName.html", gin.H{"title": "我是测试",
+		"address": "www.5lmh.com"})
+}
+
 func Jsonp(content *gin.Context) {
 	data := &information.PersonInfo{
 		User_id:  4,
@@ -39,7 +46,7 @@ func Jsonp(content *gin.Context) {
 }
 
 func UploadData(context *gin.Context) {
-	file, err := context.FormFile("file")
+	file, err := context.FormFile("file1")
 	if err != nil {
 		context.String(http.StatusInternalServerError, "读取file失败: "+err.Error())
 		return
@@ -60,11 +67,31 @@ func UploadData(context *gin.Context) {
 		Work:     Work,
 		Email:    Email,
 	}
-	err = context.SaveUploadedFile(file, "../../images/person/"+file.Filename)
+	dst := path.Join("../../images/person/", file.Filename) //路径基于main.go位置
+	err = context.SaveUploadedFile(file, dst)
 	if err != nil {
 		return
 	}
 	context.JSON(http.StatusOK, allInfo)
+
+}
+
+func UploadSameNameData(context *gin.Context) {
+	form, err := context.MultipartForm()
+	if err != nil {
+		context.String(http.StatusInternalServerError, "读取file失败: "+err.Error())
+		return
+	}
+	file := form.File["file[]"]
+	for _, file := range file {
+		dst := path.Join("../../images/person/", file.Filename) //路径基于main.go位置
+		err = context.SaveUploadedFile(file, dst)
+		if err != nil {
+			return
+		}
+	}
+	//defer file.Close()
+	context.JSON(http.StatusOK, "success")
 
 }
 

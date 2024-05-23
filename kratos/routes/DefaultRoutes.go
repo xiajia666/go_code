@@ -15,6 +15,14 @@ func DefaultRoutes(r *gin.Engine) {
 		// 加载、返回html
 		r.LoadHTMLGlob("../../html/*")
 		r.GET("/upload", admin.Upload)
+		// 上传并保存文件
+		r.POST("/upload", admin.UploadData)
+
+		// 上传相同文件名的文件
+		r.GET("/uploadsamename", admin.UploadSameName)
+		// 上传并保存文件
+		r.POST("/uploadsamename", admin.UploadSameNameData)
+
 		r.GET("/show", admin.UserController{}.UserIndex)
 
 		// 回调函数 // http://localhost:8080/jsonp?cal1back=xxxx 执行前端的函数xxx
@@ -31,23 +39,7 @@ func DefaultRoutes(r *gin.Engine) {
 			username, _ := context.Get("username") //来自全局中间件的值
 			v, _ := username.(string)              // 类型断言，将username由interdace{}转化为string
 			fmt.Println(v)
-		},
-		)
-
-		//r.GET("/show", func(c *gin.Context) {
-		//	c.HTML(http.StatusOK, "show.html", gin.H{})
-		//})
-		//
-		////添加路由处理程序
-		//r.GET("/users", func(c *gin.Context) {
-		//	//var users []User
-		//	//// 查询所有用户
-		//	//db.Find(&users)
-		//	c.JSON(200, "ososo")
-		//})
-
-		// 上传并保存文件
-		r.POST("/upload", admin.UploadData)
+		})
 
 		//获取get传值---username、sex
 		r.GET("/getVaule", admin.GetValue)

@@ -12,8 +12,10 @@ import (
 	"model/kratos/cmd/kratos/internal/run"
 	"model/kratos/cmd/kratos/internal/upgrade"
 	"model/kratos/middleware/customize"
+	"model/kratos/models"
 	"model/kratos/routes"
 	"model/kratos/struct/Information"
+	"text/template"
 )
 
 var rootCmd = &cobra.Command{
@@ -85,6 +87,10 @@ func main() {
 	r.Use(customize.GolbalMiddleWare) //全局中间件，可配置多个
 	routes.DefaultRoutes(r)
 	routes.ApiRoutes(r)
+	r.SetFuncMap(template.FuncMap{
+		"UnixToTime": models.UnixToTime,
+		"TimeToUnix": models.TimeToUnix,
+	})
 
 	// 运行 HTTP 服务器
 	r.Run(":8080")
