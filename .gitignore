@@ -1,3 +1,5 @@
 ./go.mod
 ./kratos/cmd/kratos/tmp/*
 ./kratos/tmp/*
+*.mod
+*.yaml
