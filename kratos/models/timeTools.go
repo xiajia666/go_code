@@ -14,3 +14,13 @@ func UnixToTime(timeUnix int) string { // 时间戳----->时间
 	t := time.Unix(int64(timeUnix), 0)
 	return t.Format(time.RFC3339)
 }
+
+func GetDate() string {
+	template := "YYYY-MM-DD HH:MM:mm"
+	return time.Now().Format(template)
+}
+
+func GetDay() string {
+	template := "20060102"
+	return time.Now().Format(template)
+}

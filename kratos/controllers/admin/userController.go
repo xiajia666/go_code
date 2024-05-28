@@ -3,8 +3,10 @@ package admin
 import (
 	"encoding/xml"
 	"github.com/gin-gonic/gin"
+	"model/kratos/models"
 	information "model/kratos/struct/Information"
 	"net/http"
+	"os"
 	"path"
 	"strconv"
 )
@@ -143,4 +145,41 @@ func GetDynamicRoute(context *gin.Context) {
 
 func (con UserController) Inherit(ctx *gin.Context) {
 	con.BaseController.success(ctx)
+}
+
+func (con UserController) UoloadByDate(context *gin.Context) {
+	file, err := context.FormFile("file")
+	if err == nil {
+		extName := path.Ext(file.Filename)
+		allowExtMap := map[string]bool{
+			".jpg":  true,
+			".png":  true,
+			".gif":  true,
+			".jpeg": true,
+		}
+		if _, err := allowExtMap[extName]; !err {
+			context.String(200, "上传的文件不合法")
+			return
+		}
+		day := models.GetDate()
+
+		dir := "../images" + day
+		err := os.MkdirAll(dir, 0666)
+		if err != nil {
+			context.String(200, "MkdirAll失败")
+			return
+		}
+
+		FileName := models.GetDay() + extName
+		dst := path.Join(dir, FileName)
+		err = context.SaveUploadedFile(file, dst)
+		if err != nil {
+			return
+		}
+
+		context.JSON(http.StatusOK, gin.H{
+			"success": true,
+			"dst":     dst,
+		})
+	}
 }
