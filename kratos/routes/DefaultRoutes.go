@@ -56,5 +56,6 @@ func DefaultRoutes(r *gin.Engine) {
 		// 动态路由配置
 		r.GET("/getDynamicRoute/:cid", admin.GetDynamicRoute)
 		r.GET("/inherit", admin.UserController{}.Inherit)
+		r.GET("/mysqldate", admin.UserController{}.GetMysqlDate)
 	}
 }
