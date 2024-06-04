@@ -4,8 +4,6 @@ import (
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/spf13/cobra"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
 	"model/kratos/cmd/kratos/internal/change"
 	"model/kratos/cmd/kratos/internal/project"
 	"model/kratos/cmd/kratos/internal/proto"
@@ -14,7 +12,6 @@ import (
 	"model/kratos/middleware/customize"
 	"model/kratos/models"
 	"model/kratos/routes"
-	"model/kratos/struct/Information"
 	"text/template"
 )
 
@@ -52,37 +49,6 @@ func hello() string {
 //}
 
 func main() {
-
-	//
-	//app := kratos.New(
-	//	kratos.Name("cors"),
-	//	kratos.Server(
-	//		httpSrv,
-	//	),
-	//)
-	//if err := app.Run(); err != nil {
-	//	log.Fatal(err)
-	//}
-	//if err := app.Run(); err != nil {
-	//	log.Fatal(err)
-	//}
-
-	db, err := gorm.Open(mysql.Open("root:985211@tcp(118.25.191.214:3306)/Information"), &gorm.Config{})
-	if db == nil && err != nil {
-		panic("failed to connect")
-	}
-
-	var allInfo = information.PersonInfo{
-		User_id:  4,
-		Username: "JohnMike",
-		Age:      30,
-		Address:  "123 Street",
-		Sex:      "Male",
-		Work:     "Engineer",
-		Email:    "john@example.com",
-	}
-	db.Create(&allInfo)
-
 	r := gin.Default()                //默认引擎自带两个中间件
 	r.Use(customize.GolbalMiddleWare) //全局中间件，可配置多个
 	routes.DefaultRoutes(r)

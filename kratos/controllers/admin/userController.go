@@ -183,3 +183,13 @@ func (con UserController) UoloadByDate(context *gin.Context) {
 		})
 	}
 }
+
+func (con UserController) GetMysqlDate(context *gin.Context) {
+	ItTeacherInfoList := []models.ItTeacherInfo{}
+	models.DB.First(&ItTeacherInfoList)
+	models.ConvTimeStamps(&ItTeacherInfoList) //传入指针，修改时间戳不带区域时间
+	context.JSON(http.StatusOK, gin.H{
+		"success": true,
+		"data":    ItTeacherInfoList,
+	})
+}
