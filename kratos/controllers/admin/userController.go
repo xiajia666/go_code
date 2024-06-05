@@ -185,8 +185,19 @@ func (con UserController) UoloadByDate(context *gin.Context) {
 }
 
 func (con UserController) GetMysqlDate(context *gin.Context) {
-	ItTeacherInfoList := []models.ItTeacherInfo{}
-	models.DB.First(&ItTeacherInfoList)
+	////写入信息
+	//ItTeacherInfoList := []models.ItTeacherInfo{}
+	//models.DB.First(&ItTeacherInfoList)
+	//models.ConvTimeStamps(&ItTeacherInfoList) //传入指针，修改时间戳不带区域时间
+
+	////查询语句
+	//ItTeacherInfoList := []models.ItTeacherInfo{}
+	//models.DB.Where("age>20 and age = 25").Find(&ItTeacherInfoList)
+	//models.ConvTimeStamps(&ItTeacherInfoList) //传入指针，修改时间戳不带区域时间
+
+	////查询条件id=2
+	ItTeacherInfoList := models.ItTeacherInfo{Id: 2}
+	models.DB.Find(&ItTeacherInfoList)
 	models.ConvTimeStamps(&ItTeacherInfoList) //传入指针，修改时间戳不带区域时间
 	context.JSON(http.StatusOK, gin.H{
 		"success": true,
