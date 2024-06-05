@@ -3,3 +3,4 @@
 ./kratos/tmp/*
 *.mod
 *.yaml
+/test.go
