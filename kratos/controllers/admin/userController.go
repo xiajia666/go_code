@@ -193,3 +193,12 @@ func (con UserController) GetMysqlDate(context *gin.Context) {
 		"data":    ItTeacherInfoList,
 	})
 }
+
+func (con UserController) SetCookies(context *gin.Context) {
+	context.SetCookie("username", "张三哎呀你干嘛", 3600, "/", "localhost", false, false)
+}
+func (con UserController) GetCookies(context *gin.Context) {
+	username, _ := context.Cookie("username")
+
+	context.JSON(200, username)
+}

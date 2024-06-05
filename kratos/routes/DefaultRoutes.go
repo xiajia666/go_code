@@ -57,5 +57,7 @@ func DefaultRoutes(r *gin.Engine) {
 		r.GET("/getDynamicRoute/:cid", admin.GetDynamicRoute)
 		r.GET("/inherit", admin.UserController{}.Inherit)
 		r.GET("/mysqldate", admin.UserController{}.GetMysqlDate)
+		r.GET("/getcookies", admin.UserController{}.GetCookies)
+
 	}
 }
