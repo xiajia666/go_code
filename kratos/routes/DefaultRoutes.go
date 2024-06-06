@@ -23,7 +23,7 @@ func DefaultRoutes(r *gin.Engine) {
 		// 上传并保存文件
 		r.POST("/uploadsamename", admin.UploadSameNameData)
 
-		r.GET("/show", admin.UserController{}.UserIndex)
+		r.GET("/show", admin.UserController{}.UserIndex, customize.Logger())
 
 		// 回调函数 // http://localhost:8080/jsonp?cal1back=xxxx 执行前端的函数xxx
 		// xxxx("User_id":  4,"Username": "JohnMike", "Age":30, "Address": "123 Street", "Sex":"Male", "Work":"Engineer", "Email":"john@example.com")})；
