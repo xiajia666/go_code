@@ -1,4 +1,4 @@
-package models
+package Struct
 
 type ItTeacherInfo struct {
 	Id          int
