@@ -64,8 +64,14 @@ func Search(content *gin.Context) {
 	}
 }
 func GetInfo(context *gin.Context) {
-	id := context.Query("id")
+	currentPage, _ := strconv.Atoi(context.DefaultQuery("currentPage", "0"))
+	pageSize, _ := strconv.Atoi(context.DefaultQuery("pageSize", "0"))
+	offset := (currentPage - 1) * pageSize
+	//id := context.Query("id")
 	var teacherInfo Struct.ItTeacherInfo
-	mysql.DBTeacherInfo.First(&teacherInfo, id)
-	context.JSON(http.StatusOK, gin.H{"status": "200", "message": teacherInfo, "id": id})
+	//mysql.DBTeacherInfo.First(&teacherInfo, id)
+	// 分页操作，offset表示跳过几条数据，limit表示查询几条数据
+	mysql.DBTeacherInfo.Offset(offset).Limit(pageSize).Find(&teacherInfo)
+	//mysql.DBTeacherInfo.Raw("select * from lt_teacher_info").Scan(&teacherInfo) // 原生sql查询
+	context.JSON(http.StatusOK, gin.H{"status": "200", "message": teacherInfo})
 }
