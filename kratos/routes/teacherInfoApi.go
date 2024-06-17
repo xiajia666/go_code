@@ -12,5 +12,6 @@ func TeacherInfoRoutes(r *gin.Engine) {
 		r.POST("/search", teacherController.Search)
 		r.POST("/save", teacherController.Save)
 		r.POST("/delete", teacherController.Delete)
+		r.GET("/getValue", teacherController.GetInfo)
 	}
 }

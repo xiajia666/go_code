@@ -3,8 +3,8 @@ package admin
 import (
 	"encoding/xml"
 	"github.com/gin-gonic/gin"
+	"model/kratos/internal/Struct"
 	"model/kratos/models"
-	"model/kratos/models/mysql"
 	"net/http"
 	"os"
 	"path"
@@ -35,14 +35,12 @@ func UploadSameName(content *gin.Context) {
 }
 
 func Jsonp(content *gin.Context) {
-	data := &information.PersonInfo{
-		User_id:  4,
-		Username: "JohnMike",
-		Age:      30,
-		Address:  "123 Street",
-		Sex:      "Male",
-		Work:     "Engineer",
-		Email:    "john@example.com",
+	data := &Struct.ItTeacherInfo{
+		Id:          4,
+		Name:        "JohnMike",
+		Age:         30,
+		Workaddress: "123 Street",
+		Gender:      "Male",
 	}
 	content.JSONP(http.StatusOK, data)
 }
@@ -54,20 +52,16 @@ func UploadData(context *gin.Context) {
 		return
 	}
 	//defer file.Close()
-	Username := context.PostForm("Username")
+	Name := context.PostForm("Username")
 	Age, _ := strconv.Atoi(context.PostForm("Age"))
 	Address := context.PostForm("Address")
-	Sex := context.PostForm("Sex")
-	Work := context.PostForm("Work")
-	Email := context.PostForm("Email")
+	Gender := context.PostForm("Sex")
 
-	allInfo := information.PersonInfo{
-		Username: Username,
-		Age:      Age,
-		Address:  Address,
-		Sex:      Sex,
-		Work:     Work,
-		Email:    Email,
+	allInfo := Struct.ItTeacherInfo{
+		Name:        Name,
+		Age:         Age,
+		Workaddress: Address,
+		Gender:      Gender,
 	}
 	dst := path.Join("../../images/person/", file.Filename) //路径基于main.go位置
 	err = context.SaveUploadedFile(file, dst)
@@ -117,7 +111,7 @@ func PostValue(context *gin.Context) {
 }
 
 func GetBindStruct(context *gin.Context) {
-	user := information.GetBindStruct{}
+	user := Struct.ItTeacherInfo{}
 	if err := context.ShouldBind(&user); err != nil {
 		context.JSON(http.StatusOK, gin.H{
 			"err": err.Error(),
@@ -129,7 +123,7 @@ func GetBindStruct(context *gin.Context) {
 
 func GetXml(context *gin.Context) {
 	sliceData, _ := context.GetRawData()
-	xmlStruct := &information.GetXml{}
+	xmlStruct := &Struct.ItTeacherInfo{}
 	if err := xml.Unmarshal(sliceData, xmlStruct); err == nil {
 		context.JSON(http.StatusOK, xmlStruct)
 	} else {
@@ -196,7 +190,7 @@ func (con UserController) GetMysqlDate(context *gin.Context) {
 	//models.ConvTimeStamps(&ItTeacherInfoList) //传入指针，修改时间戳不带区域时间
 
 	////查询条件id=2
-	ItTeacherInfoList := mysql.ItTeacherInfo{Id: 2}
+	ItTeacherInfoList := Struct.ItTeacherInfo{Id: 2}
 	models.DB.Find(&ItTeacherInfoList)
 	//models.ConvTimeStamps(&ItTeacherInfoList) //传入指针，修改时间戳不带区域时间
 	context.JSON(http.StatusOK, gin.H{

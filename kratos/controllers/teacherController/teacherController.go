@@ -63,3 +63,9 @@ func Search(content *gin.Context) {
 		mysql.DBTeacherInfo.Model(&Struct.ItTeacherInfo{}).Where("id = ? or name = ?", id, name).First(&info)
 	}
 }
+func GetInfo(context *gin.Context) {
+	id := context.Query("id")
+	var teacherInfo Struct.ItTeacherInfo
+	mysql.DBTeacherInfo.First(&teacherInfo, id)
+	context.JSON(http.StatusOK, gin.H{"status": "200", "message": teacherInfo, "id": id})
+}
