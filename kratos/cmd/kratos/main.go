@@ -54,6 +54,7 @@ func main() {
 	routes.DefaultRoutes(r)
 	routes.ApiRoutes(r)
 	routes.TeacherInfoRoutes(r)
+	routes.ArticleInfoRoutes(r)
 	r.SetFuncMap(template.FuncMap{
 		"UnixToTime": models.UnixToTime,
 		"TimeToUnix": models.TimeToUnix,
