@@ -5,3 +5,4 @@
 *.yaml
 /test.go
 kratos/logs/*
+/go.sum
