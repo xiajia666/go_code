@@ -1,14 +1,28 @@
 package main
 
-import (
-	"fmt"
-	"model/account/utils"
-)
+import "fmt"
+
+type server struct {
+	name string
+}
+
+type server2 struct {
+	name string
+	server
+}
+
+func (s server) getServer() server {
+	return server{name: "server111"}
+}
 
 func main() {
-	var name string = "xijaia"
-	fmt.Println(name)
-	fmt.Println("面向对象的方式来完成.....")
-	utils.NewMyFamilyAccount().MainMenu()
+	// Create an instance of server2
+	//srv2 := server2{
+	//	name:   "server2",
+	//	server: server{name: "embedded server"},
+	//}
 
+	// Call getServer method on the embedded server field
+	ok := server2{}.getServer()
+	fmt.Println(ok)
 }

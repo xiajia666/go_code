@@ -1,0 +1,19 @@
+syntax = "proto3";
+option go_package = "./;getTeacherInfo";
+
+
+
+service GetTeacherInfo{
+  rpc GetTeacherInfo(RequestInfo) returns (ResponseInfo);
+}
+
+
+message RequestInfo{
+  int64 id = 1;
+  string name = 2;
+  string worknum = 3;
+}
+
+message ResponseInfo{
+  repeated string teacherinfo = 1;
+}
