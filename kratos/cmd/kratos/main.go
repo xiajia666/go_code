@@ -30,37 +30,25 @@ func init() {
 	rootCmd.AddCommand(run.CmdRun)
 }
 
-//func customMiddleware(handler middleware.Handler) middleware.Handler {
-//	return func(ctx context.Context, req interface{}) (reply interface{}, err error) {
-//		if tr, ok := transport.FromServerContext(ctx); ok {
-//			fmt.Println("operation:", tr.Operation())
-//		}
-//		reply, err = handler(ctx, req)
-//		return
-//	}
-//}
-
-func hello() string {
-	return "sb"
-}
-
-//func hello(c http.Context) string {
-//	return "sb"
-//}
-
-func main() {
-	r := gin.Default()                //默认引擎自带两个中间件
-	r.Use(customize.GolbalMiddleWare) //全局中间件，可配置多个
+func loadRoutes(r *gin.Engine) {
 	routes.DefaultRoutes(r)
 	routes.ApiRoutes(r)
 	routes.TeacherInfoRoutes(r)
 	routes.ArticleInfoRoutes(r)
+	routes.EmailRoutes(r)
 	r.SetFuncMap(template.FuncMap{
 		"UnixToTime": models.UnixToTime,
 		"TimeToUnix": models.TimeToUnix,
 	})
+}
 
-	// 运行 HTTP 服务器
-	r.Run(":8080")
+func loadMiddleware(r *gin.Engine) {
+	r.Use(customize.GolbalMiddleWare) //全局中间件，可配置多个
+}
 
+func main() {
+	r := gin.Default() //默认引擎自带两个中间件
+	loadRoutes(r)      //加载路由
+	loadMiddleware(r)  //加载中间件
+	r.Run(":8080")     // 运行 HTTP 服务器
 }
