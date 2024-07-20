@@ -24,8 +24,11 @@ func main() {
 	t := time.Now()
 	switch {
 	case t.Hour() < 12:
+
 		fmt.Println("It's before noon")
+		break
 	default:
-		fmt.Println("It's after noon")
+		fmt.Println("It's after noon") // 不加break也可以
 	}
+
 }

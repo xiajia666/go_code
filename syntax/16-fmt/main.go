@@ -22,4 +22,16 @@ func main() {
 	f := 3.141592653
 	fmt.Println(f)          // 3.141592653
 	fmt.Printf("%.2f\n", f) // 3.14
+
+	//修改字符串
+	k := "我是帅哥"        //汉字占有3字节，字母占有1字节，
+	b := "abc"         // rune 是unicode编码，所以rune类型是int32类型，4个字节
+	runeK := []rune(k) // byte是字节，1个字节
+	byteB := []byte(b)
+	runeK[0] = '你'
+	byteB[0] = 'l'
+
+	fmt.Println(string(runeK))
+	fmt.Println(string(byteB))
+
 }
