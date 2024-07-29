@@ -53,6 +53,7 @@ func main() {
 	r.Use(customize.GolbalMiddleWare) //全局中间件，可配置多个
 	routes.DefaultRoutes(r)
 	routes.ApiRoutes(r)
+	routes.EmailRoutes(r)
 	r.SetFuncMap(template.FuncMap{
 		"UnixToTime": models.UnixToTime,
 		"TimeToUnix": models.TimeToUnix,

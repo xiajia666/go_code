@@ -6,8 +6,8 @@ import (
 )
 
 func EmailRoutes(r *gin.Engine) {
-	r.Group("/email")
+	email := r.Group("/email")
 	{
-		r.GET("/send", emailController.EmailSend)
+		email.GET("/send", emailController.EmailSend)
 	}
 }
