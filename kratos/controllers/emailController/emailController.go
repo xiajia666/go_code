@@ -13,7 +13,7 @@ import (
 
 func EmailSend(ctx *gin.Context) {
 	// 读取邮件服务配置文件
-	config, _ := pkg.ReadYamlConfig("../../../", "config.yaml")
+	config, _ := pkg.ReadYamlConfig("../../config/", "config.yaml")
 	emailSend, emailPassword := fmt.Sprintf("%v", config.Get("email.emailSend")), fmt.Sprintf("%v", config.Get("email.emailPassword"))
 
 	name, emailAccept := ctx.Query("name"), ctx.Query("email")

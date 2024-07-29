@@ -1,0 +1,24 @@
+Server:
+  RunMode: debug
+  HttpPort: 8000
+  ReadTimeout: 60
+  WriteTimeout: 60
+App:
+  DefaultPageSize: 10
+  MaxPageSize: 100
+  LogSavePath: storage/logs
+  LogFileName: app
+  LogFileExt: .log
+Database:
+  DBType: mysql
+  Username: xxx  # 数据库账号
+  Password: xxx  # 数据库密码
+  Host: 127.0.0.1:3306
+  DBName: MYTEST
+  Charset: utf8
+  ParseTime: True
+  MaxIdleConns: 10
+  MaxOpenConns: 30
+Email:
+  emailSend: xj1101295740@163.com
+  emailPassword: TVUPKPNGLESQXGAO

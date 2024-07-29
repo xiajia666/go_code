@@ -1,8 +1,5 @@
-./go.mod
 ./kratos/cmd/kratos/tmp/*
 ./kratos/tmp/*
-*.mod
 *.yaml
 /test.go
 kratos/logs/*
-/go.sum
