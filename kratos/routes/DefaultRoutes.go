@@ -11,7 +11,7 @@ func DefaultRoutes(r *gin.Engine) {
 	r.Group("/")
 	{
 		// 加载、返回html
-		r.LoadHTMLGlob("../../html/*")
+		r.LoadHTMLGlob("kratos/html/*")
 		r.GET("/upload", admin.Upload)
 		// 上传并保存文件
 		r.POST("/upload", admin.UploadData)
