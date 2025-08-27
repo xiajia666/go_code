@@ -12,8 +12,8 @@ import (
 func add(a, b int, ch chan int) {
 	c := a + b
 	fmt.Printf("%d + %d = %d\n", a, b, c)
-	ch <- 1
-	fmt.Println("我在写入")
+	ch <- c
+	fmt.Println("我在写入", c)
 }
 
 func main() {
@@ -24,10 +24,28 @@ func main() {
 		go add(1, i, chs[i])
 	}
 	for _, ch := range chs {
-		<-ch
-		fmt.Println("我在读取")
+		data := <-ch
+		fmt.Println("我在读取", data)
 	}
 	end := time.Now()
 	consume := end.Sub(start).Seconds()
 	fmt.Println("程序执行耗时(s)：", consume)
+
+	// 通道接受和发送值
+	chn := make(chan int, 10)
+	defer close(chn)
+	go func() { //接受
+
+		for i := 0; i < 10; i++ {
+			chn <- i
+		}
+	}()
+	go func() { //发送
+		for i := 0; i < 10; i++ {
+			a := <-chn
+			fmt.Println(a)
+		}
+	}()
+	time.Sleep(time.Second * 1)
+
 }

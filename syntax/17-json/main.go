@@ -7,7 +7,7 @@ import (
 
 type userInfo struct {
 	Name  string
-	Age   int `json:"age"`
+	Age   int `json:"age"` // Tag
 	Hobby []string
 }
 
