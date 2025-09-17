@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/shopspring/decimal"
+	"github.com/tidwall/gjson"
+)
 
 //// map 错误示例
 //func main() {
@@ -39,4 +43,11 @@ func main() {
 	for k, v := range mapData {
 		fmt.Println(k, v)
 	}
+
+	price, _ := decimal.NewFromString("11.09")
+	fmt.Println(price)
+
+	const json = `{"name":{"xiajia":"home"}, "age":17}`
+	value := gjson.Get(json, "name.xiajia")
+	fmt.Println(value)
 }
