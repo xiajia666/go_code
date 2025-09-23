@@ -31,4 +31,14 @@ func main() {
 		fmt.Println("It's after noon") // 不加break也可以
 	}
 
+	exTag := "xiaoyu"
+	switch exTag {
+	case "xiaomao", "xiaogou":
+		fmt.Println("陆地")
+	case "xiaoyu", "xiaoma":
+		fmt.Println("水")
+	default:
+		fmt.Println("默认值")
+	}
+
 }
