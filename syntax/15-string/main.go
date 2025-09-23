@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -21,4 +22,17 @@ func main() {
 	fmt.Println(len(a))                                   // 5
 	b := "你好"
 	fmt.Println(len(b)) // 6
+
+	//类型转换
+	var str string = "10"
+	var intValue int = 10
+
+	isInt, _ := strconv.ParseInt(str, 0, 0) // base代表进制，bitSize解析的整数范围，0代表自动解析，决定溢出检查，最终结果会转成 int64
+	fmt.Printf("%T\n", isInt)
+
+	trans2Str_1 := strconv.Itoa(intValue)      // 数字转字符串
+	trans2Str_2 := fmt.Sprintf("%d", intValue) // 数字转字符串
+	fmt.Printf("%T\n", trans2Str_1)
+	fmt.Printf("%T\n", trans2Str_2)
+
 }
