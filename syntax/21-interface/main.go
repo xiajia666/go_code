@@ -62,4 +62,6 @@ func main() {
 	cc.work(camera)
 	cc.work(phone)
 
+	fmt.Println("bbbbbb")
+
 }

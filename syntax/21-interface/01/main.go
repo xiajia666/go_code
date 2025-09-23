@@ -78,4 +78,6 @@ func main() {
 
 	v := 0x1111                   // 16进制
 	fmt.Println(unsafe.Sizeof(v)) // 字节数
+
+	fmt.Println("ssssss")
 }
